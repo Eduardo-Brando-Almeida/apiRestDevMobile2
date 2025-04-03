@@ -12,6 +12,10 @@ export default function App() {
   const hideModal = () => setVisible(false);
   const containerStyle = {backgroundColor: 'white', padding: 50};
 
+  const estados = [
+    'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG',
+    'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
+  ];
 
   const[ cep, setCep  ] = useState('');
   let [ dados, setDados ] = useState([]);
@@ -112,11 +116,21 @@ export default function App() {
             value={dados.localidade}
             onChangeText={(value) => {setDados(dados.localidade = value)}}
           />
-          <List.Section title='Estado'>
-            <List.Accordion title={selectedValue == null ? 'Selecione o Estado' : selectedValue} expanded={expanded} onPress={handleAccordionPress}>
-              <List.Item title="AC" onPress={()=> {handleItemPress("AC")}}/>
-              <List.Item title="RJ" onPress={()=> {handleItemPress("RJ")}}/>
-              <List.Item title="SP" onPress={()=> {handleItemPress("SP")}}/>
+          <List.Section title="Estado">
+            <List.Accordion
+              title={selectedValue == null ? 'Selecione o Estado' : selectedValue}
+              expanded={expanded}
+              onPress={handleAccordionPress}
+            >
+              <ScrollView style={{ maxHeight: 200 }}>
+                {estados.map((estado) => (
+                  <List.Item
+                    key={estado}
+                    title={estado}
+                    onPress={() => { handleItemPress(estado); }}
+                  />
+                ))}
+              </ScrollView>
             </List.Accordion>
           </List.Section>
 
